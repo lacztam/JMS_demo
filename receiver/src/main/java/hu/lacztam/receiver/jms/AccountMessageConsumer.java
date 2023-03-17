@@ -1,6 +1,6 @@
 package hu.lacztam.receiver.jms;
 
-import hu.lacztam.sender.model.Account;
+import hu.lacztam.model_lib.AccountModel;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 public class AccountMessageConsumer {
 
     @JmsListener(destination = "accounts")
-    public void onAccountMessage(Account account){
-        System.out.println("Receiver/account.toString()" + account.toString());
+    public void onAccountMessage(AccountModel accountModel){
+        System.out.println("Receiver/account.toString()" + accountModel.toString());
 
     }
 }

@@ -1,7 +1,6 @@
 package hu.lacztam.sender;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.activemq.broker.BrokerService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
@@ -19,14 +18,6 @@ public class JmsConfig {
         converter.setTypeIdPropertyName("_type");
 
         return converter;
-    }
-
-    @Bean
-    public BrokerService broker() throws Exception {
-        BrokerService brokerService = new BrokerService();
-        brokerService.addConnector("tcp://localhost:8100");
-        brokerService.setPersistent(false);
-        return brokerService;
     }
 
 }

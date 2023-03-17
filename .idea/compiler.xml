@@ -8,15 +8,20 @@
         <outputRelativeToContentRoot value="true" />
         <module name="receiver" />
         <module name="sender" />
+        <module name="model_lib" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="model-lib" target="17" />
+      <module name="model_lib" target="1.8" />
       <module name="receiver" target="19" />
       <module name="sender" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="model-lib" options="-parameters" />
+      <module name="model_lib" options="-parameters" />
       <module name="receiver" options="-parameters" />
       <module name="sender" options="-parameters" />
     </option>

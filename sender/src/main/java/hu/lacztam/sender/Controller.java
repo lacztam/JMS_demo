@@ -1,6 +1,6 @@
 package hu.lacztam.sender;
 
-import hu.lacztam.sender.model.Account;
+import hu.lacztam.model_lib.AccountModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +16,7 @@ public class Controller {
 
     @PostMapping("/account")
     public void sendJmsMessage(){
-        Account acc1 = new Account("Tamás","pass1234","tamas@email.com");
+        AccountModel acc1 = new AccountModel("Tamás","pass1234","tamas@email.com");
 
         this.jmsTemplate.convertAndSend("accounts", acc1);
         System.out.println("account send.");

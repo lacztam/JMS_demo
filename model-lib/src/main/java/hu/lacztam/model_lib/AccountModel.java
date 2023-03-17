@@ -1,17 +1,18 @@
-package hu.lacztam.sender.model;
+package hu.lacztam.model_lib;
 
-public class Account {
-    String username;
-    String password;
-    String email;
+public class AccountModel {
 
-    public Account() {
+    private String username;
+    private String email;
+    private String password;
+
+    public AccountModel() {
     }
 
-    public Account(String username, String password, String email) {
+    public AccountModel(String username, String email, String password) {
         this.username = username;
-        this.password = password;
         this.email = email;
+        this.password = password;
     }
 
     public String getUsername() {
@@ -22,14 +23,6 @@ public class Account {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -38,12 +31,20 @@ public class Account {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
-        return "Account{" +
+        return "AccountModel{" +
                 "username='" + username + '\'' +
-                ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }
