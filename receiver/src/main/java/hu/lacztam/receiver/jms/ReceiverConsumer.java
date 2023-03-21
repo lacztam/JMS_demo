@@ -1,7 +1,7 @@
 package hu.lacztam.receiver.jms;
 
 import hu.lacztam.model_lib.AccountModel;
-import hu.lacztam.model_lib.UserModel;
+import hu.lacztam.model_lib.TestObj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
@@ -9,12 +9,10 @@ import org.springframework.jms.core.MessageCreator;
 import org.springframework.jms.support.converter.SimpleMessageConverter;
 import org.springframework.stereotype.Component;
 
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.Session;
+import javax.jms.*;
 
 @Component
-public class AccountMessageConsumer {
+public class ReceiverConsumer {
     @Autowired
     JmsTemplate jmsTemplate;
 
@@ -28,6 +26,23 @@ public class AccountMessageConsumer {
 
     @JmsListener(destination = "users")
     public void onUsertMessage(final Message message) throws JMSException {
+
+        TestObj to = (TestObj) ((ObjectMessage)message).getObject();
+        System.out.println("to.toString(): " + to.toString());
+
+        jmsTemplate.send(message.getJMSReplyTo(), new MessageCreator() {
+
+            @Override
+            public Message createMessage(Session session) throws JMSException {
+                return session.createObjectMessage(to);
+            }
+        });
+        System.out.println("msg received and send");
+    }
+
+    //was original
+    @JmsListener(destination = "users2")
+    public void onUsertMessage2(final Message message) throws JMSException {
         System.out.println("received users, message: " + this.converter.fromMessage(message));
 
         jmsTemplate.send(message.getJMSReplyTo(), new MessageCreator() {
@@ -39,9 +54,7 @@ public class AccountMessageConsumer {
                 return responseMsg;
             }
         });
-
-        this.jmsTemplate.convertAndSend(message.getJMSReplyTo(),new UserModel("u", "e", "pw"));
-        System.out.println("receiver send UserModel");
+        System.out.println("msg received and send");
     }
 
 }
